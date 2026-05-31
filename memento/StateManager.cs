@@ -1,28 +1,28 @@
-
-
 namespace SmartHomeMVP
 {
     public class StateManager
     {
-        private LightMemento lightMemento;
-        private ThermostatMemento thermostatMemento;
+        private LightMemento? _lightMemento;
+        private ThermostatMemento? _thermostatMemento;
 
         public void SaveState(Light light, Thermostat thermostat)
         {
-            lightMemento = light.CreateMemento();
-            thermostatMemento = thermostat.CreateMemento();
+            _lightMemento = light.CreateMemento();
+            _thermostatMemento = thermostat.CreateMemento();
+            Console.WriteLine("State saved.");
         }
 
         public void RestoreState(Light light, Thermostat thermostat)
         {
-            if (lightMemento != null && thermostatMemento != null)
+            if (_lightMemento != null && _thermostatMemento != null)
             {
-                light.Restore(lightMemento);
-                thermostat.Restore(thermostatMemento);
+                light.Restore(_lightMemento);
+                thermostat.Restore(_thermostatMemento);
+                Console.WriteLine("State restored.");
             }
             else
             {
-                Console.WriteLine("no saved state to restore");
+                Console.WriteLine("No saved state to restore.");
             }
         }
     }

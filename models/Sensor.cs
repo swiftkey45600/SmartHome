@@ -1,4 +1,3 @@
-
 namespace SmartHomeMVP
 {
     public class Sensor
@@ -24,9 +23,6 @@ namespace SmartHomeMVP
             Console.WriteLine($"Sensor in {Room} was reset.");
         }
 
-        public string GetStatus()
-        {
-            return IsTriggered ? "Triggered" : "Not Triggered";
-        }
+        public string GetStatus() => IsTriggered ? "Triggered" : "Not Triggered";
     }
 }

@@ -2,30 +2,19 @@ namespace SmartHomeMVP
 {
     public class LightMemento
     {
-        private bool savedIsOn;
+        private readonly bool _savedIsOn;
 
-        public LightMemento(bool IsOn)
-        {
-            savedIsOn = IsOn;
-        }
+        public LightMemento(bool isOn) => _savedIsOn = isOn;
 
-        public bool GetIsOn()
-        {
-            return savedIsOn;
-        }
+        public bool GetIsOn() => _savedIsOn;
     }
+
     public class ThermostatMemento
     {
-        private int savedTemperature;
+        private readonly int _savedTemperature;
 
-        public ThermostatMemento(int temperature)
-        {
-            savedTemperature = temperature;
-        }
+        public ThermostatMemento(int temperature) => _savedTemperature = temperature;
 
-        public int GetTemperature()
-        {
-            return savedTemperature;
-        }
+        public int GetTemperature() => _savedTemperature;
     }
 }

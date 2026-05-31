@@ -1,49 +1,42 @@
-
-
 namespace SmartHomeMVP
 {
     public class Light
     {
-        // Название комнаты, где расположено устройство
         public string Room { get; private set; }
-        // Текущее состояние: true = включено, false = выключено
-        public bool IsOn { get; private set; }
+        private ILightState _state;
 
-        // Конструктор, устанавливающий название комнаты и начальное состояние (выключено)
+        public bool IsOn => _state is OnState;
+
         public Light(string room)
         {
             Room = room;
-            IsOn = false;
+            _state = new OffState();
         }
 
-        // Метод для включения света
         public void TurnOn()
         {
-            IsOn = true;
+            _state = new OnState();
             Console.WriteLine($"The light in {Room} is turned on.");
         }
 
-        // Метод для выключения света
         public void TurnOff()
         {
-            IsOn = false;
+            _state = new OffState();
             Console.WriteLine($"The light in {Room} is turned off.");
         }
 
-        // Метод для получения текущего состояния устройства в виде строки
-        public string GetStatus()
+        public void SetState(ILightState state)
         {
-            return IsOn ? "On" : "Off";
+            _state = state;
         }
 
-        public LightMemento CreateMemento()
-        {
-            return new LightMemento(IsOn);
-        }
+        public string GetStatus() => _state.GetStatus(this);
+
+        public LightMemento CreateMemento() => new LightMemento(IsOn);
 
         public void Restore(LightMemento memento)
         {
-            IsOn = memento.GetIsOn();
+            _state = memento.GetIsOn() ? (ILightState)new OnState() : new OffState();
         }
     }
 }
